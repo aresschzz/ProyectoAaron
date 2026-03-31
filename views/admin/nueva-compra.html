@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VINIL | Nueva Compra</title>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/public/css/styles.css">
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/admin/dashboard">VINIL Admin</a>
+      <a href="/admin/compras-vinilo" class="btn btn-outline-light">Volver</a>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <div class="mb-4">
+      <h1 class="fw-bold">Nueva compra de vinilos</h1>
+      <p class="text-muted">Registra una compra realizada a un cliente/proveedor.</p>
+    </div>
+
+    <div class="card shadow-sm rounded-4 border-0 p-4">
+      <form id="formCompra">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Proveedor / Cliente</label>
+            <input type="text" class="form-control" id="proveedor">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Contacto</label>
+            <input type="text" class="form-control" id="contacto">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Álbum</label>
+            <input type="text" class="form-control" id="album">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Artista</label>
+            <input type="text" class="form-control" id="artista">
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Género</label>
+            <input type="text" class="form-control" id="genero">
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Estado</label>
+            <select class="form-select" id="estado">
+              <option value="">Selecciona...</option>
+              <option>Nuevo</option>
+              <option>Usado - Bueno</option>
+              <option>Usado - Regular</option>
+              <option>Usado - Malo</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Precio de compra</label>
+            <input type="number" class="form-control" id="precioCompra">
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Rareza</label>
+            <select class="form-select" id="rareza">
+              <option value="">Selecciona...</option>
+              <option>Común</option>
+              <option>Raro</option>
+              <option>Edición limitada</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Resultado</label>
+            <select class="form-select" id="resultado">
+              <option value="">Selecciona...</option>
+              <option>Aceptado</option>
+              <option>Rechazado</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Método de pago</label>
+            <select class="form-select" id="metodoPago">
+              <option value="">Selecciona...</option>
+              <option>Efectivo</option>
+              <option>Transferencia</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-4">
+          <button type="submit" class="btn btn-success">Registrar compra</button>
+          <a href="/admin/compras-vinilo" class="btn btn-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('formCompra').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const proveedor = document.getElementById('proveedor').value.trim();
+      const contacto = document.getElementById('contacto').value.trim();
+      const album = document.getElementById('album').value.trim();
+      const artista = document.getElementById('artista').value.trim();
+      const genero = document.getElementById('genero').value.trim();
+      const estado = document.getElementById('estado').value.trim();
+      const precioCompra = document.getElementById('precioCompra').value.trim();
+      const rareza = document.getElementById('rareza').value.trim();
+      const resultado = document.getElementById('resultado').value.trim();
+      const metodoPago = document.getElementById('metodoPago').value.trim();
+
+      if (!proveedor || !contacto || !album || !artista || !genero || !estado || !precioCompra || !rareza || !resultado || !metodoPago) {
+        alert('Llena todos los campos');
+        return;
+      }
+
+      alert('Compra registrada');
+      this.reset();
+    });
+  </script>
+
+  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

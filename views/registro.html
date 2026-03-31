@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VINIL | Registro</title>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/public/css/styles.css">
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/">VINIL</a>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <div class="card shadow-lg border-0 rounded-4 p-4">
+          <h2 class="fw-bold mb-3 text-center">Crear cuenta</h2>
+          <p class="text-muted text-center mb-4">Regístrate como cliente o proveedor de vinilos</p>
+
+          <form>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" placeholder="Nombre">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Teléfono / Contacto</label>
+                <input type="text" class="form-control" placeholder="55...">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Correo</label>
+                <input type="email" class="form-control" placeholder="correo@ejemplo.com">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Tipo de usuario</label>
+                <select class="form-select">
+                  <option>Cliente</option>
+                  <option>Proveedor</option>
+                  <option>Ambos</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Contraseña</label>
+                <input type="password" class="form-control" placeholder="••••••••">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Confirmar contraseña</label>
+                <input type="password" class="form-control" placeholder="••••••••">
+              </div>
+            </div>
+
+            <div class="d-grid mt-4">
+              <button class="btn btn-dark btn-lg rounded-3">Registrarme</button>
+            </div>
+          </form>
+
+          <div class="text-center mt-4">
+            <a href="/login" class="text-decoration-none">Ya tengo cuenta</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

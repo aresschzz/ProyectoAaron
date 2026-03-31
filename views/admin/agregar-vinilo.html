@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VINIL | Agregar Vinilo</title>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/public/css/styles.css">
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/admin/dashboard">VINIL Admin</a>
+      <a href="/admin/inventario" class="btn btn-outline-light">Volver</a>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <div class="mb-4">
+      <h1 class="fw-bold">Agregar vinilo</h1>
+      <p class="text-muted">Registra un nuevo vinilo al inventario.</p>
+    </div>
+
+    <div class="card shadow-sm rounded-4 border-0 p-4">
+      <form id="formVinilo">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Álbum</label>
+            <input type="text" class="form-control" id="album">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Artista</label>
+            <input type="text" class="form-control" id="artista">
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Género</label>
+            <input type="text" class="form-control" id="genero">
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Estado</label>
+            <select class="form-select" id="estado">
+              <option value="">Selecciona...</option>
+              <option>Nuevo</option>
+              <option>Usado - Bueno</option>
+              <option>Usado - Regular</option>
+              <option>Usado - Malo</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Stock</label>
+            <input type="number" class="form-control" id="stock">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Precio de compra estimado</label>
+            <input type="number" class="form-control" id="precioCompra">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Precio de venta</label>
+            <input type="number" class="form-control" id="precioVenta">
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-4">
+          <button type="submit" class="btn btn-success">Guardar vinilo</button>
+          <a href="/admin/inventario" class="btn btn-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('formVinilo').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const album = document.getElementById('album').value.trim();
+      const artista = document.getElementById('artista').value.trim();
+      const genero = document.getElementById('genero').value.trim();
+      const estado = document.getElementById('estado').value.trim();
+      const stock = document.getElementById('stock').value.trim();
+      const precioCompra = document.getElementById('precioCompra').value.trim();
+      const precioVenta = document.getElementById('precioVenta').value.trim();
+
+      if (!album || !artista || !genero || !estado || !stock || !precioCompra || !precioVenta) {
+        alert('Llena todos los campos');
+        return;
+      }
+
+      alert('Vinilo agregado');
+      this.reset();
+    });
+  </script>
+
+  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
