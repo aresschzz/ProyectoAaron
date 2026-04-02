@@ -1,11 +1,13 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+
+// LO TIENEN QUE DESCARGAR CON NPM!!!!!!!!!!!!!!!!!!!!!!!!!
 import pg from 'pg';
 
 const { Pool } = pg; // <-- PARA POSTGRES BRUNO
-// lo que hace es que permita hacer que el docker de la base y el node puedan funcionar Bien 
-// cada que se apague o prenda el server
+// Evita que el servidor colapse por exceso de RAM 
+// al reciclar conexiones.
 
 const app = express();
 const PORT = 3000;
