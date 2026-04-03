@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="/">VINIL</a>
+    <div class="ms-auto">
+      <a href="/catalogo" class="btn btn-outline-light btn-sm me-2">Catálogo</a>
+      <a href="/registro" class="btn btn-primary btn-sm">Crear cuenta</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container d-flex justify-content-center align-items-center py-5" style="min-height: 90vh;">
+  <div class="row w-100 justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-lg border-0 rounded-4 p-4 bg-white">
+        <div class="text-center mb-4">
+          <h2 class="fw-bold mb-1">Iniciar sesión</h2>
+          <p class="text-muted mb-0">Accede a tu cuenta VINIL</p>
+        </div>
+
+        <form>
+          <div class="mb-3">
+            <label class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control form-control-lg" placeholder="correo@ejemplo.com">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Contraseña</label>
+            <input type="password" class="form-control form-control-lg" placeholder="••••••••">
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="recordarme">
+              <label class="form-check-label" for="recordarme">Recordarme</label>
+            </div>
+            <a href="#" class="small text-decoration-none">¿Olvidaste tu contraseña?</a>
+          </div>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-dark btn-lg rounded-3">Entrar</button>
+          </div>
+        </form>
+
+        <hr class="my-4">
+
+        <div class="text-center">
+          <p class="mb-2">¿No tienes cuenta?</p>
+          <a href="/registro" class="btn btn-outline-dark w-100 rounded-3">Crear cuenta</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

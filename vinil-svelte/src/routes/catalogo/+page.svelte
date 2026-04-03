@@ -1,0 +1,84 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="/">VINIL</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuVinil">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="menuVinil">
+      <ul class="navbar-nav me-auto ms-3">
+        <li class="nav-item"><a class="nav-link active" href="/catalogo">Catálogo</a></li>
+        <li class="nav-item"><a class="nav-link" href="/compras">Mis compras</a></li>
+        <li class="nav-item"><a class="nav-link" href="/perfil">Perfil</a></li>
+      </ul>
+
+      <div class="d-flex gap-2">
+        <a href="/carrito" class="btn btn-outline-light">Carrito</a>
+        <a href="/login" class="btn btn-primary">Entrar</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="container py-5">
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+    <div>
+      <h1 class="fw-bold mb-1">Catálogo de Vinilos</h1>
+      <p class="text-muted mb-0">Disponibles, ediciones especiales y piezas únicas</p>
+    </div>
+
+    <div class="d-flex gap-2 flex-wrap">
+      <input type="text" class="form-control" placeholder="Buscar álbum o artista..." style="max-width: 260px;">
+      <select class="form-select" style="max-width: 180px;">
+        <option>Todos los géneros</option>
+        <option>Rock</option>
+        <option>Pop</option>
+        <option>Jazz</option>
+        <option>Metal</option>
+      </select>
+      <select class="form-select" style="max-width: 180px;">
+        <option>Todos los estados</option>
+        <option>Nuevo</option>
+        <option>Usado - Bueno</option>
+        <option>Usado - Regular</option>
+        <option>Usado - Malo</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm rounded-4 overflow-hidden border-0">
+        <div class="vinyl-placeholder"></div>
+        <div class="card-body">
+          <span class="badge text-bg-dark mb-2">Rock</span>
+          <h5 class="card-title fw-bold">Nevermind</h5>
+          <p class="text-muted mb-1">Nirvana</p>
+          <p class="mb-1">Estado: Usado - Bueno</p>
+          <p class="mb-2">Stock: 1</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="fw-bold fs-5">$350</span>
+            <a href="/detalle" class="btn btn-dark rounded-3">Ver vinilo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm rounded-4 overflow-hidden border-0">
+        <div class="vinyl-placeholder"></div>
+        <div class="card-body">
+          <span class="badge text-bg-secondary mb-2">Pop</span>
+          <h5 class="card-title fw-bold">Thriller</h5>
+          <p class="text-muted mb-1">Michael Jackson</p>
+          <p class="mb-1">Estado: Nuevo</p>
+          <p class="mb-2">Stock: 3</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="fw-bold fs-5">$680</span>
+            <a href="/detalle" class="btn btn-dark rounded-3">Ver vinilo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
