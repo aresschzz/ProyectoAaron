@@ -51,5 +51,5 @@ app.get('/admin/usuarios', (req, res) => res.sendFile(path.join(__dirname, 'view
 app.get('/admin/reportes', (req, res) => res.sendFile(path.join(__dirname, 'views', 'admin', 'reportes.html')));
 
 app.listen(PORT, () => {
-  console.log(`VINIL corriendo seguro y con Pool en http://localhost:${PORT} xd`);
+  console.log(`VINIL = corriendo seguro y con Pool en http://localhost:${PORT} NODE = activo : DOCKER = ACTIVO`);
 });
