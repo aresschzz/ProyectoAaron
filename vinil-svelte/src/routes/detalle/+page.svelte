@@ -1,3 +1,11 @@
+<script>
+  const { data } = $props();
+  
+  const v = data.vinilo;
+</script>
+
+<svelte:head><title>VINIL | {v.catalogo_vinilo?.nombre_albums ?? 'Detalle'}</title></svelte:head>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
   <div class="container">
     <a class="navbar-brand fw-bold" href="/">VINIL</a>
@@ -17,26 +25,31 @@
     </div>
 
     <div class="col-lg-7">
-      <span class="badge text-bg-dark mb-2">Rock</span>
-      <h1 class="fw-bold mb-1">Nevermind</h1>
-      <p class="fs-5 text-muted mb-3">Nirvana</p>
-
-      <h3 class="fw-bold text-success mb-3">$350</h3>
+      {#if v.catalogo_vinilo?.genero?.nombre}
+        <span class="badge text-bg-dark mb-2">{v.catalogo_vinilo.genero.nombre}</span>
+      {/if}
+      <h1 class="fw-bold mb-1">{v.catalogo_vinilo?.nombre_albums ?? '—'}</h1>
+      <p class="fs-5 text-muted mb-3">{v.catalogo_vinilo?.artista?.nombre ?? '—'}</p>
+      <h3 class="fw-bold text-success mb-3">${v.precio_venta}</h3>
 
       <div class="mb-4">
-        <p class="mb-2"><strong>Estado:</strong> Usado - Bueno</p>
-        <p class="mb-2"><strong>Rareza:</strong> Media</p>
-        <p class="mb-2"><strong>Disponibilidad:</strong> 1 pieza</p>
-        <p class="mb-0"><strong>Tipo de stock:</strong> Disponible para venta</p>
+        <p class="mb-2"><strong>Estado físico:</strong> {v.estatus?.nombre ?? '—'}</p>
+        <p class="mb-2"><strong>Empresa:</strong> {v.catalogo_vinilo?.empresa?.nombre ?? '—'}</p>
+        <p class="mb-2"><strong>Año:</strong> {v.catalogo_vinilo?.anio ?? '—'}</p>
+        <p class="mb-0"><strong>Disponibilidad:</strong>
+          {#if v.disponible}
+            <span class="badge text-bg-success">Disponible</span>
+          {:else}
+            <span class="badge text-bg-danger">No disponible</span>
+          {/if}
+        </p>
       </div>
 
-      <p class="text-muted">
-        Edición usada en buen estado, ideal para coleccionistas y fans del grunge.
-      </p>
-
+      {#if v.disponible}
       <div class="d-flex gap-2 mt-4">
-        <a href="/carrito" class="btn btn-dark">Agregar al carrito</a>
+        <a href="/carrito?ids={v.id_vinilo}" class="btn btn-dark">Agregar al carrito</a>
       </div>
+      {/if}
     </div>
   </div>
 </main>

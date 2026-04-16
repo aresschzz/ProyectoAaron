@@ -1,9 +1,10 @@
 import { DataTypes } from "sequelize";
-import db from "../services/db.js";
+import db from "../db.js";
 import Rol from "./Rol.js";
+import Direccion from "./Direccion.js";
 
-const User = db.define(
-  "user",
+const Usuario = db.define(
+  "usuario",
   {
     id_user: {
       primaryKey: true,
@@ -36,8 +37,12 @@ const User = db.define(
   },
 );
 
-User.belongsTo(Rol, { 
-    foreignKey: 'id_rol' 
+Usuario.belongsTo(Rol, {
+  foreignKey: "id_rol",
+});
+Usuario.belongsTo(Direccion, {
+  foreignKey: "id_direccion",
 });
 
-export default User;
+
+export default Usuario;

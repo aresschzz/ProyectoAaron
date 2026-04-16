@@ -1,42 +1,33 @@
 import { DataTypes } from "sequelize";
-import db from "../services/db.js";
+import db from "../db.js";
 import Catalogo_Vinilo from "./Catalogo_Vinilo.js";
-import Estatus from "./Estatus.js";
-
+import Estado_Vinilo from "./Estado_Vinilo.js";
 
 const Vinilo = db.define(
     "vinilo",
     {
-        id_vinilo:{
+        id_vinilo: {
             primaryKey: true,
             type: DataTypes.INTEGER,
             autoIncrement: true
         },
-        precio_venta:{
-            type: DataTypes.DECIMAL(5,2)
+        precio_venta: {
+            type: DataTypes.DECIMAL(5, 2)
         },
-        precio_compra:{
-            type: DataTypes.DECIMAL(5,2)
-
+        precio_compra: {
+            type: DataTypes.DECIMAL(5, 2)
         },
-        disponible:{
+        disponible: {
             type: DataTypes.BOOLEAN
         }
     },
+    {
+        freezeTableName: true,
+        timestamps: false,
+    }
+);
 
-  {
-    freezeTableName: true,
-    timestamps: false,
-  }
-)
-
-Vinilo.belongsTo(Catalogo_Vinilo, { 
-    foreignKey: 'id_catalogo' 
-});
-
-
-Vinilo.belongsTo(Estatus, { 
-    foreignKey: 'id_estatus' 
-});
+Vinilo.belongsTo(Catalogo_Vinilo, { foreignKey: 'id_catalogo' });
+Vinilo.belongsTo(Estado_Vinilo, { foreignKey: 'id_estado_vinilo' });
 
 export default Vinilo;

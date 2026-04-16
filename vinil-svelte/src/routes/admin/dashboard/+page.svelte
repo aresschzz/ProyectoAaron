@@ -1,12 +1,12 @@
 <script>
+  const { data } = $props();
   import NavbarAdmin from '$lib/components/NavbarAdmin.svelte';
+  
+  const { stats, movimientos } = data;
 </script>
 
 <NavbarAdmin />
-
-<svelte:head>
-  <title>VINIL | Dashboard Admin</title>
-</svelte:head>
+<svelte:head><title>VINIL | Dashboard Admin</title></svelte:head>
 
 <div class="container py-5">
   <div class="mb-4">
@@ -18,28 +18,25 @@
     <div class="col-md-6 col-lg-3">
       <div class="card p-4 rounded-4 border-0 shadow-sm">
         <h6 class="text-muted">Vinilos en inventario</h6>
-        <p class="display-6 fw-bold mb-0">128</p>
+        <p class="display-6 fw-bold mb-0">{stats.totalVinilos}</p>
       </div>
     </div>
-
     <div class="col-md-6 col-lg-3">
       <div class="card p-4 rounded-4 border-0 shadow-sm">
         <h6 class="text-muted">Compras a proveedor</h6>
-        <p class="display-6 fw-bold mb-0">42</p>
+        <p class="display-6 fw-bold mb-0">{stats.totalCompras}</p>
       </div>
     </div>
-
     <div class="col-md-6 col-lg-3">
       <div class="card p-4 rounded-4 border-0 shadow-sm">
         <h6 class="text-muted">Ventas del mes</h6>
-        <p class="display-6 fw-bold mb-0">$12,500</p>
+        <p class="display-6 fw-bold mb-0">{stats.ventasMes}</p>
       </div>
     </div>
-
     <div class="col-md-6 col-lg-3">
       <div class="card p-4 rounded-4 border-0 shadow-sm">
         <h6 class="text-muted">Ganancia estimada</h6>
-        <p class="display-6 fw-bold mb-0">$4,850</p>
+        <p class="display-6 fw-bold mb-0">${stats.gananciaEstimada}</p>
       </div>
     </div>
   </div>
@@ -51,32 +48,20 @@
         <div class="table-responsive">
           <table class="table align-middle">
             <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Movimiento</th>
-                <th>Usuario</th>
-                <th>Estado</th>
-              </tr>
+              <tr><th>Tipo</th><th>Vinilo</th><th>Usuario</th><th>Estado</th></tr>
             </thead>
             <tbody>
+              {#each movimientos as m}
               <tr>
-                <td>30/03/2026</td>
-                <td>Compra de “Nevermind”</td>
-                <td>Proveedor</td>
-                <td><span class="badge text-bg-warning">En revisión</span></td>
+                <td>{m.tipo}</td>
+                <td>{m.descripcion}</td>
+                <td>{m.usuario}</td>
+                <td><span class="badge text-bg-{m.badge}">{m.badgeTexto}</span></td>
               </tr>
-              <tr>
-                <td>30/03/2026</td>
-                <td>Venta “Thriller”</td>
-                <td>Cliente</td>
-                <td><span class="badge text-bg-success">Pagado</span></td>
-              </tr>
-              <tr>
-                <td>29/03/2026</td>
-                <td>Alta de vinilo</td>
-                <td>Admin</td>
-                <td><span class="badge text-bg-dark">Inventario</span></td>
-              </tr>
+              {/each}
+              {#if movimientos.length === 0}
+              <tr><td colspan="4" class="text-muted text-center">Sin movimientos recientes</td></tr>
+              {/if}
             </tbody>
           </table>
         </div>

@@ -1,3 +1,12 @@
+<script>
+  const { data, form } = $props();
+  
+  
+  const dir = data.direccion;
+</script>
+
+<svelte:head><title>VINIL | Checkout</title></svelte:head>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
   <div class="container">
     <a class="navbar-brand fw-bold" href="/">VINIL</a>
@@ -11,71 +20,53 @@
 <main class="container py-5">
   <div class="mb-4">
     <h1 class="fw-bold mb-1">Proceder al pago</h1>
-    <p class="text-muted mb-0">Finaliza tu compra online</p>
+    <p class="text-muted mb-0">Finaliza tu compra</p>
   </div>
 
-  <div class="row g-4">
-    <div class="col-lg-8">
-      <div class="card shadow-sm rounded-4 p-4 mb-4">
-        <h4 class="fw-bold mb-3">Datos de envío</h4>
-        <form>
+  {#if form?.error}
+    <div class="alert alert-danger rounded-3">{form.error}</div>
+  {/if}
+
+  <form method="POST">
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <div class="card shadow-sm rounded-4 p-4 mb-4">
+          <h4 class="fw-bold mb-3">Datos de envío</h4>
           <div class="row g-3">
-            <div class="col-md-6">
-              <input type="text" class="form-control" placeholder="Nombre completo">
-            </div>
-            <div class="col-md-6">
-              <input type="email" class="form-control" placeholder="Correo">
-            </div>
             <div class="col-md-8">
-              <input type="text" class="form-control" placeholder="Dirección">
+              <label class="form-label">Calle</label>
+              <input type="text" name="calle" class="form-control" value={dir?.calle ?? ''} required>
             </div>
             <div class="col-md-4">
-              <input type="text" class="form-control" placeholder="CP">
+              <label class="form-label">Núm. exterior</label>
+              <input type="text" name="numero_ext" class="form-control" value={dir?.numero_ext ?? ''}>
             </div>
-            <div class="col-md-6">
-              <input type="text" class="form-control" placeholder="Ciudad">
+            <div class="col-md-4">
+              <label class="form-label">Colonia</label>
+              <input type="text" name="colonia" class="form-control" value={dir?.colonia ?? ''} required>
             </div>
-            <div class="col-md-6">
-              <input type="text" class="form-control" placeholder="Estado">
+            <div class="col-md-4">
+              <label class="form-label">Ciudad</label>
+              <input type="text" name="ciudad" class="form-control" value={dir?.ciudad ?? ''} required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Código postal</label>
+              <input type="text" name="codigo_postal" class="form-control" value={dir?.codigo_postal ?? ''} required>
             </div>
           </div>
-        </form>
+        </div>
       </div>
 
-      <div class="card shadow-sm rounded-4 p-4">
-        <h4 class="fw-bold mb-3">Método de pago</h4>
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="radio" name="pago" checked>
-          <label class="form-check-label">Tarjeta</label>
-        </div>
-        <div class="row g-3 mt-2">
-          <div class="col-md-8">
-            <input type="text" class="form-control" placeholder="Número de tarjeta">
-          </div>
-          <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="CVV">
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Titular">
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="MM/AA">
+      <div class="col-lg-4">
+        <div class="card shadow-sm rounded-4 p-4">
+          <h4 class="fw-bold mb-3">Resumen</h4>
+          <p class="text-muted">Los artículos de tu carrito serán procesados al confirmar.</p>
+          <hr>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-success btn-lg rounded-3">Confirmar compra</button>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="col-lg-4">
-      <div class="card shadow-sm rounded-4 p-4">
-        <h4 class="fw-bold mb-3">Resumen</h4>
-        <div class="d-flex justify-content-between mb-2"><span>Nevermind</span><span>$350</span></div>
-        <div class="d-flex justify-content-between mb-2"><span>Envío</span><span>$120</span></div>
-        <hr>
-        <div class="d-flex justify-content-between mb-3"><strong>Total</strong><strong>$470</strong></div>
-        <div class="d-grid">
-          <a href="/confirmacion" class="btn btn-success btn-lg rounded-3">Confirmar compra</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  </form>
 </main>

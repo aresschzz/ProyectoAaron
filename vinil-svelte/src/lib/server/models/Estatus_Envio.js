@@ -1,16 +1,16 @@
 import { DataTypes } from "sequelize";
 import db from "../db.js";
 
-const Artista = db.define(
-  "artista",
+const Estatus_Envio = db.define(
+  "estatus_envio",
   {
-    id_artista: {
+    id_estatus_envio: {
       primaryKey: true,
       type: DataTypes.INTEGER,
       autoIncrement: true,
     },
     nombre: {
-      type: DataTypes.STRING(150),
+      type: DataTypes.STRING(100),
     },
   },
   {
@@ -19,4 +19,4 @@ const Artista = db.define(
   },
 );
 
-export default Artista;
+export default Estatus_Envio;

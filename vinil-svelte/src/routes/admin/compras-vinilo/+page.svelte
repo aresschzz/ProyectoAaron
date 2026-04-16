@@ -1,11 +1,11 @@
 <script>
+  const { data, form } = $props();
   import NavbarAdmin from '$lib/components/NavbarAdmin.svelte';
+  
+  
 </script>
 
-<svelte:head>
-  <title>VINIL | Compras de Vinilos</title>
-</svelte:head>
-
+<svelte:head><title>VINIL | Compras de Vinilos</title></svelte:head>
 <NavbarAdmin />
 
 <div class="container py-5">
@@ -17,36 +17,40 @@
     <a href="/admin/nueva-compra" class="btn btn-success">+ Nueva compra</a>
   </div>
 
+  {#if form?.success}<div class="alert alert-success rounded-3">Compra registrada correctamente.</div>{/if}
+  {#if form?.error}<div class="alert alert-danger rounded-3">{form.error}</div>{/if}
+
   <div class="card shadow-sm rounded-4 border-0 p-4">
     <div class="table-responsive">
       <table class="table align-middle">
         <thead>
-          <tr>
-            <th>ID</th>
-            <th>Proveedor</th>
-            <th>Vinilo</th>
-            <th>Estado</th>
-            <th>Total pagado</th>
-            <th>Fecha</th>
-          </tr>
+          <tr><th>ID</th><th>Registrado por</th><th>Vinilo</th><th>Estado</th><th>Precio pagado</th></tr>
         </thead>
         <tbody>
+          {#each data.compras as c}
           <tr>
-            <td>C001</td>
-            <td>Juan Ramírez</td>
-            <td>Nevermind - Nirvana</td>
-            <td><span class="badge text-bg-warning">En revisión</span></td>
-            <td>$200</td>
-            <td>29/03/2026</td>
+            <td>{c.id_compra_vinilo}</td>
+            <td>{c.usuario ? `${c.usuario.nombre} ${c.usuario.apellido_pa}` : '—'}</td>
+            <td>
+              {#each c.detalle_compras ?? [] as d}
+                <span class="d-block">{d.vinilo?.catalogo_vinilo?.nombre_albums ?? '—'}</span>
+              {/each}
+            </td>
+            <td>
+              {#each c.detalle_compras ?? [] as d}
+                <span class="badge text-bg-secondary d-block">{d.estado ?? '—'}</span>
+              {/each}
+            </td>
+            <td>
+              {#each c.detalle_compras ?? [] as d}
+                <span class="d-block">${d.precio_compra}</span>
+              {/each}
+            </td>
           </tr>
-          <tr>
-            <td>C002</td>
-            <td>Laura Sánchez</td>
-            <td>Thriller - Michael Jackson</td>
-            <td><span class="badge text-bg-success">Disponible</span></td>
-            <td>$350</td>
-            <td>28/03/2026</td>
-          </tr>
+          {/each}
+          {#if data.compras.length === 0}
+          <tr><td colspan="5" class="text-center text-muted">Sin compras registradas.</td></tr>
+          {/if}
         </tbody>
       </table>
     </div>

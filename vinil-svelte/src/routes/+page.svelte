@@ -1,3 +1,8 @@
+<script>
+  const { data } = $props();
+  const destacados = data?.destacados ?? [];
+</script>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
   <div class="container">
     <a class="navbar-brand fw-bold" href="/">VINIL</a>
@@ -17,7 +22,6 @@
       </p>
       <a href="/catalogo" class="btn btn-primary btn-lg">Explorar catálogo</a>
     </div>
-
     <div class="col-md-6">
       <div class="hero-image-container shadow rounded-4 overflow-hidden">
         <img src="/img/vinil-hero.jpg" alt="Discos de vinil" class="img-fluid w-100 hero-image">
@@ -25,6 +29,24 @@
     </div>
   </div>
 </header>
+
+{#if destacados.length > 0}
+<section class="container pb-5">
+  <h2 class="fw-bold mb-4">Últimos vinilos disponibles</h2>
+  <div class="row g-4">
+    {#each destacados as v}
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm rounded-4 border-0 p-3">
+        <h6 class="fw-bold mb-1">{v.catalogo_vinilo?.nombre_albums ?? '—'}</h6>
+        <p class="text-muted small mb-1">{v.catalogo_vinilo?.artista?.nombre ?? '—'}</p>
+        <p class="fw-bold mb-2">${v.precio_venta}</p>
+        <a href="/detalle?id={v.id_vinilo}" class="btn btn-sm btn-dark rounded-3">Ver vinilo</a>
+      </div>
+    </div>
+    {/each}
+  </div>
+</section>
+{/if}
 
 <section class="container pb-5">
   <div class="row g-4">
