@@ -1,0 +1,21 @@
+para INICIAR, primero se pone el docker de postgrest    
+docker compose up --build
+
+APAGAR
+docker compose down -v
+
+COMANDOS
+docker compose up -d        # Iniciar en segundo plano
+docker compose down         # Apagar
+docker compose down -v      # Apagar y se borran la stablas para inciar limpio
+docker compose ps           # Ver si está corriendo ✅
+docker compose logs         # Ver errores si algo falla
+docker compose up           # si no cambiaste nada
+
+se que esto es un error de seguridad pero en el .env deben poner 
+DB_HOST=db
+DB_USER=postgres
+DB_PASSWORD=1234
+DB_NAME=tienda_vinilos
+
+el .env debe estar en root obvio junto al git ignore
