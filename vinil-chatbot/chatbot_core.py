@@ -92,7 +92,6 @@ def detectar_artista(texto, lista_artistas):
     if mejor_score >= 85:
         return mejor
 
-    # 🔥 3. NUEVO: detectar posible nombre libre
     palabras = texto.split()
     if len(palabras) >= 2:
         posible = " ".join(palabras[-2:])

@@ -43,7 +43,7 @@
           <div>
             <h5 class="mb-1 fw-bold">{v.catalogo_vinilo?.nombre_albums ?? '—'}</h5>
             <p class="text-muted mb-1">{v.catalogo_vinilo?.artista?.nombre ?? '—'}</p>
-            <small class="text-secondary">Estado: {v.estatus?.nombre ?? '—'}</small>
+            <small class="text-secondary">Estado fisico: {v.estado_vinilo?.nombre ?? '—'}</small>
           </div>
           <div class="text-end">
             <p class="fw-bold fs-5 mb-0">${v.precio_venta}</p>

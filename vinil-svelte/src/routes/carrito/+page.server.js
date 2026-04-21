@@ -3,6 +3,9 @@ import Vinilo from '$lib/server/models/Vinilo.js';
 import Catalogo_Vinilo from '$lib/server/models/Catalogo_Vinilo.js';
 import Artista from '$lib/server/models/Artista.js';
 import Estado_Vinilo from '$lib/server/models/Estado_Vinilo.js';
+import Empresa from '$lib/server/models/Empresa';
+import Genero from '$lib/server/models/Genero.js';
+
 
 export async function load({ url, cookies }) {
   const usuarioId = cookies.get('usuario_id');
@@ -21,7 +24,14 @@ export async function load({ url, cookies }) {
             { 
               model: Artista,
               as: "artista"   
+            },
+            {
+              model: Genero, as: "genero"
+            },
+            {
+              model: Empresa, as: "empresa"
             }
+
           ]
         },
         { 

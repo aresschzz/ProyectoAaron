@@ -15,7 +15,7 @@ services:
       - ./baseDeDatos:/docker-entrypoint-initdb.d
 
   api:
-    build: ./frontBack
+    build: ./vinil-svelte
     container_name: api_vinilos
     ports:
       - "3000:3000"

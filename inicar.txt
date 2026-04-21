@@ -8,7 +8,7 @@ COMANDOS
 docker compose up -d        # Iniciar en segundo plano
 docker compose down         # Apagar
 docker compose down -v      # Apagar y se borran la stablas para inciar limpio
-docker compose ps           # Ver si está corriendo ✅
+docker compose ps           # Ver si está corriendo
 docker compose logs         # Ver errores si algo falla
 docker compose up           # si no cambiaste nada
 

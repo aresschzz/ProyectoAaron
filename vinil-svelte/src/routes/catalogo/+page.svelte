@@ -4,6 +4,7 @@
   let generoFiltro = $state('');
   let chatAbierto = $state(false);
   let mensaje = $state('');
+  let menuAbierto = $state(false);
   let mensajes = $state([
     { tipo: 'bot', texto: '¡Hola! Mucho gusto, soy una chatbot en su fase beta, puedo buscar informacion sobre cualquier vinilo, si no encuentro informacion prueba con otras palabras :)' }
   ]);
@@ -43,10 +44,15 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
   <div class="container">
     <a class="navbar-brand fw-bold" href="/">VINIL</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuVinil">
+    <button
+      class="navbar-toggler"
+      type="button"
+      on:click={() => menuAbierto = !menuAbierto}
+      aria-expanded={menuAbierto}
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="menuVinil">
+    <div class="navbar-collapse" class:collapse={!menuAbierto} id="menuVinil">
       <ul class="navbar-nav me-auto ms-3">
         <li class="nav-item"><a class="nav-link active" href="/catalogo">Catálogo</a></li>
         <li class="nav-item"><a class="nav-link" href="/compras">Mis compras</a></li>
