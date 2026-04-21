@@ -18,10 +18,23 @@ export async function load({ url, cookies }) {
       include: [
         {
           model: Detalle_Orden,
+          as: "detalles",
           include: [
             {
               model: Vinilo,
-              include: [{ model: Catalogo_Vinilo, include: [{ model: Artista }] }]
+              as: "vinilo",
+              include: [
+                {
+                  model: Catalogo_Vinilo,
+                  as: "catalogo_vinilo",
+                  include: [
+                    {
+                      model: Artista,
+                      as: "artista"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }

@@ -12,14 +12,18 @@ export async function load() {
         include: [
           {
             model: Catalogo_Vinilo,
+            as: "catalogo_vinilo",
             include: [
-              { model: Artista },
-              { model: Genero }
+              { model: Artista, as: "artista" },
+              { model: Genero, as: "genero" }
             ]
           },
-          { model: Estado_Vinilo }
+          {
+            model: Estado_Vinilo,
+            as: "estado_vinilo"
+          }
         ],
-        order: [['id_vinilo', 'DESC']]
+        order: [['id_vinilo', 'DESC']] 
       }),
       Estado_Vinilo.findAll()
     ]);

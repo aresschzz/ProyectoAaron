@@ -12,9 +12,10 @@ export async function load() {
         include: [
           {
             model: Catalogo_Vinilo,
+            as: "catalogo_vinilo",
             include: [
-              { model: Artista },
-              { model: Genero }
+              { model: Artista, as: "artista" },
+              { model: Genero, as: "genero" }
             ]
           },
           { model: Estado_Vinilo }

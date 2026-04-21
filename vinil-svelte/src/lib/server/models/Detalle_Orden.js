@@ -18,15 +18,15 @@ const Detalle_Orden = db.define(
   {
     freezeTableName: true,
     timestamps: false,
-  },
+  }
 );
 
-Detalle_Orden.belongsTo(Orden, {
-  foreignKey: "id_orden",
-});
+Detalle_Orden.belongsTo(Orden, { foreignKey: "id_orden" });
+Detalle_Orden.belongsTo(Vinilo, { foreignKey: "id_vinilo" });
 
-Detalle_Orden.belongsTo(Vinilo, {
-  foreignKey: "id_vinilo",
-});
+// Solo define la asociación si no existe ya
+if (!Orden.associations?.detalles) {
+  Orden.hasMany(Detalle_Orden, { foreignKey: "id_orden", as: "detalles" });
+}
 
 export default Detalle_Orden;

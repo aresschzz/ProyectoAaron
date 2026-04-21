@@ -10,8 +10,8 @@ export async function load({ cookies }) {
   try {
     const usuario = await Usuario.findByPk(usuarioId, {
       include: [
-        { model: Rol },
-        { model: Direccion }
+        { model: Rol, as: 'rol' },
+        { model: Direccion, as: 'direccion' }
       ],
       attributes: { exclude: ['password'] }
     });
@@ -39,7 +39,7 @@ export const actions = {
     try {
       await Usuario.update(
         { nombre, apellido_pa: apellidoPa, apellido_ma: apellidoMa, telefono },
-        { where: { id_user: usuarioId } }
+        { where: { id_us: id_usuario } }
       );
       return { success: true };
     } catch (err) {
@@ -51,6 +51,6 @@ export const actions = {
   cerrarSesion: async ({ cookies }) => {
     cookies.delete('usuario_id', { path: '/' });
     cookies.delete('usuario_rol', { path: '/' });
-    redirect(302, '/login');
+    return edirect(302, '/login');
   }
 };

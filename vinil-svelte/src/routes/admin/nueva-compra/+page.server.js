@@ -33,6 +33,10 @@ export async function load() {
 export const actions = {
   default: async ({ request, cookies }) => {
     const usuarioId = cookies.get('usuario_id');
+
+    if (!usuarioId) {
+      throw redirect(302, '/login');
+    }
     const data = await request.formData();
 
     const albumNombre    = data.get('album')?.toString().trim();

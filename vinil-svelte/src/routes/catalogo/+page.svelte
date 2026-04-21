@@ -1,11 +1,14 @@
 <script>
   const { data } = $props();
-
   let busqueda = $state('');
   let generoFiltro = $state('');
+  let chatAbierto = $state(false);
+  let mensaje = $state('');
+  let mensajes = $state([
+    { tipo: 'bot', texto: '¡Hola! Mucho gusto, soy una chatbot en su fase beta, puedo buscar informacion sobre cualquier vinilo, si no encuentro informacion prueba con otras palabras :)' }
+  ]);
 
   const generos = $derived([...new Set(data.vinilos.map(v => v.catalogo_vinilo?.genero?.nombre).filter(Boolean))]);
-
   const vinilosFiltrados = $derived(data.vinilos.filter(v => {
     const album   = v.catalogo_vinilo?.nombre_albums?.toLowerCase() ?? '';
     const artista = v.catalogo_vinilo?.artista?.nombre?.toLowerCase() ?? '';
@@ -14,6 +17,25 @@
     const coincideGenero   = generoFiltro === '' || genero === generoFiltro;
     return coincideBusqueda && coincideGenero;
   }));
+
+  async function enviarMensaje() {
+    if (!mensaje.trim()) return;
+    const textoUsuario = mensaje;
+    mensajes = [...mensajes, { tipo: 'user', texto: textoUsuario }];
+    mensaje = '';
+
+    try {
+      const res = await fetch('http://localhost:5000/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mensaje: textoUsuario })
+      });
+      const data = await res.json();
+      mensajes = [...mensajes, { tipo: 'bot', texto: data.respuesta }];
+    } catch (err) {
+      mensajes = [...mensajes, { tipo: 'bot', texto: 'Error al conectar 😕' }];
+    }
+  }
 </script>
 
 <svelte:head><title>VINIL | Catálogo</title></svelte:head>
@@ -69,7 +91,7 @@
           {/if}
           <h5 class="card-title fw-bold">{v.catalogo_vinilo?.nombre_albums ?? '—'}</h5>
           <p class="text-muted mb-1">{v.catalogo_vinilo?.artista?.nombre ?? '—'}</p>
-          <p class="mb-2">Estado: {v.estatus?.nombre ?? '—'}</p>
+          <p class="mb-2">Estado: {v.estado_vinilo?.nombre ?? '—'}</p>
           <div class="d-flex justify-content-between align-items-center">
             <span class="fw-bold fs-5">${v.precio_venta}</span>
             <a href="/detalle?id={v.id_vinilo}" class="btn btn-dark rounded-3">Ver vinilo</a>
@@ -81,3 +103,132 @@
   </div>
   {/if}
 </main>
+
+<button class="chat-toggle" on:click={() => chatAbierto = !chatAbierto}>
+  💬
+</button>
+
+{#if chatAbierto}
+<div class="chat-box shadow">
+  <div class="chat-header">
+    Bot Viniles (Beta)
+    <button class="chat-close" on:click={() => chatAbierto = false}>✕</button>
+  </div>
+  <div class="chat-body">
+    {#each mensajes as m}
+      <div class="msg {m.tipo}">{m.texto}</div>
+    {/each}
+  </div>
+  <div class="chat-footer">
+    <input
+      type="text"
+      placeholder="Escribe tu mensaje..."
+      bind:value={mensaje}
+      on:keydown={(e) => e.key === 'Enter' && enviarMensaje()}
+    />
+    <button on:click={enviarMensaje}>➤</button>
+  </div>
+</div>
+{/if}
+
+<style>
+  .chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    border: none;
+    background: black;
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  .chat-box {
+    position: fixed;
+    bottom: 90px;
+    left: 20px;
+    width: 320px;
+    height: 420px;
+    background: white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 999;
+  }
+
+  .chat-header {
+    background: black;
+    color: white;
+    padding: 10px 14px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .chat-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .chat-body {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .msg {
+    padding: 8px 12px;
+    border-radius: 12px;
+    max-width: 80%;
+    font-size: 14px;
+  }
+
+  .msg.user {
+    background: #0d6efd;
+    color: white;
+    align-self: flex-end;
+  }
+
+  .msg.bot {
+    background: #f1f1f1;
+    color: #111;
+    align-self: flex-start;
+  }
+
+  .chat-footer {
+    display: flex;
+    border-top: 1px solid #ddd;
+  }
+
+  .chat-footer input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    outline: none;
+    font-size: 14px;
+  }
+
+  .chat-footer button {
+    border: none;
+    background: black;
+    color: white;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+</style>

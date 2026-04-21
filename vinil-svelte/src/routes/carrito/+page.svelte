@@ -66,10 +66,12 @@
           <strong>${total}</strong>
         </div>
         <div class="d-grid">
-          <form method="POST" action="/checkout">
-            <input type="hidden" name="items" value={JSON.stringify(items.map(v => ({ id_vinilo: v.id_vinilo })))}>
-            <button type="submit" class="btn btn-success btn-lg rounded-3 w-100">Proceder al pago</button>
-          </form>
+          <a
+            href={`/checkout?ids=${items.map(v => v.id_vinilo).join(',')}`}
+            class="btn btn-success btn-lg rounded-3 w-100"
+          >
+            Proceder al pago
+          </a>
         </div>
       </div>
     </div>

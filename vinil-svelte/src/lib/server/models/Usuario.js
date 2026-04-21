@@ -6,7 +6,7 @@ import Direccion from "./Direccion.js";
 const Usuario = db.define(
   "usuario",
   {
-    id_user: {
+    id_usuario: {
       primaryKey: true,
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -38,10 +38,13 @@ const Usuario = db.define(
 );
 
 Usuario.belongsTo(Rol, {
-  foreignKey: "id_rol",
+  foreignKey: 'id_rol',
+  as: 'rol'
 });
+
 Usuario.belongsTo(Direccion, {
-  foreignKey: "id_direccion",
+  foreignKey: 'id_direccion',
+  as: 'direccion'
 });
 
 

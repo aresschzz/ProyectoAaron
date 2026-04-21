@@ -15,6 +15,7 @@ export async function load({ cookies }) {
       include: [
         {
           model: Detalle_Orden,
+          as: "detalles",
           include: [
             {
               model: Vinilo,

@@ -25,8 +25,19 @@ const Catalogo_Vinilo = db.define(
   },
 );
 
-Catalogo_Vinilo.belongsTo(Artista, { foreignKey: "id_artista" });
-Catalogo_Vinilo.belongsTo(Empresa, { foreignKey: "id_empresa" });
-Catalogo_Vinilo.belongsTo(Genero, { foreignKey: "id_genero" });
+Catalogo_Vinilo.belongsTo(Artista, { 
+  foreignKey: "id_artista",
+  as: "artista"
+});
+
+Catalogo_Vinilo.belongsTo(Empresa, { 
+  foreignKey: "id_empresa",
+  as: "empresa"
+});
+
+Catalogo_Vinilo.belongsTo(Genero, { 
+  foreignKey: "id_genero",
+  as: "genero"
+});
 
 export default Catalogo_Vinilo;

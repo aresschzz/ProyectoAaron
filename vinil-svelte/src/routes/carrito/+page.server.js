@@ -16,9 +16,18 @@ export async function load({ url, cookies }) {
       include: [
         {
           model: Catalogo_Vinilo,
-          include: [{ model: Artista }]
+          as: "catalogo_vinilo", 
+          include: [
+            { 
+              model: Artista,
+              as: "artista"   
+            }
+          ]
         },
-        { model: Estado_Vinilo }
+        { 
+          model: Estado_Vinilo,
+          as: "estado_vinilo" 
+        }
       ]
     });
     const items = vinilos.map(v => v.toJSON());

@@ -1,6 +1,6 @@
 <script>
   const { data, form } = $props();
-  
+  const items = data.items;
   
   const dir = data.direccion;
 </script>
@@ -28,6 +28,11 @@
   {/if}
 
   <form method="POST">
+    <input
+      type="hidden"
+      name="items"
+      value={JSON.stringify(items.map(v => ({ id_vinilo: v.id_vinilo })))}
+    />
     <div class="row g-4">
       <div class="col-lg-8">
         <div class="card shadow-sm rounded-4 p-4 mb-4">
@@ -57,14 +62,33 @@
         </div>
       </div>
 
-      <div class="col-lg-4">
-        <div class="card shadow-sm rounded-4 p-4">
-          <h4 class="fw-bold mb-3">Resumen</h4>
-          <p class="text-muted">Los artículos de tu carrito serán procesados al confirmar.</p>
-          <hr>
-          <div class="d-grid">
-            <button type="submit" class="btn btn-success btn-lg rounded-3">Confirmar compra</button>
-          </div>
+      <div class="card shadow-sm rounded-4 p-4">
+        <h4 class="fw-bold mb-3">Resumen</h4>
+
+        {#if items.length === 0}
+          <p class="text-muted">No hay productos.</p>
+        {:else}
+          {#each items as v}
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div>
+                <h6 class="mb-0 fw-bold">
+                  {v.catalogo_vinilo?.nombre_albums ?? '—'}
+                </h6>
+                <small class="text-muted">
+                  {v.catalogo_vinilo?.artista?.nombre ?? '—'}
+                </small>
+              </div>
+              <span>${v.precio_venta}</span>
+            </div>
+          {/each}
+        {/if}
+
+        <hr>
+
+        <div class="d-grid">
+          <button type="submit" class="btn btn-success btn-lg rounded-3">
+            Confirmar compra
+          </button>
         </div>
       </div>
     </div>

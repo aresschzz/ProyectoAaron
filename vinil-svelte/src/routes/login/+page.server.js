@@ -24,7 +24,7 @@ export const actions = {
         return fail(401, { error: 'Credenciales incorrectas' });
       }
 
-      cookies.set('usuario_id', String(usuario.id_user), {
+      cookies.set('usuario_id', String(usuario.id_usuario), {
         path: '/',
         httpOnly: true,
         maxAge: 60 * 60 * 24

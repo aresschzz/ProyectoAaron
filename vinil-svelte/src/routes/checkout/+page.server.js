@@ -5,16 +5,49 @@ import Orden from '$lib/server/models/Orden.js';
 import Detalle_Orden from '$lib/server/models/Detalle_Orden.js';
 import Vinilo from '$lib/server/models/Vinilo.js';
 import Direccion from '$lib/server/models/Direccion.js';
+import Catalogo_Vinilo from '$lib/server/models/Catalogo_Vinilo.js';
+import Artista from '$lib/server/models/Artista.js';
+import Usuario from '$lib/server/models/Usuario.js';
+import { fail, redirect, isRedirect } from '@sveltejs/kit';
 
-export async function load({ cookies }) {
-  const usuarioId = cookies.get('usuario_id');
+
+
+
+export async function load({ cookies, url }) {
+  const usuarioId = Number(cookies.get('usuario_id'));
   if (!usuarioId) throw redirect(302, '/login');
 
+  const idsParam = url.searchParams.get('ids');
+  const ids = idsParam ? idsParam.split(',').map(Number) : [];
+
   try {
-    const direccion = await Direccion.findOne({ where: { id_usuario: usuarioId } });
-    return { direccion: direccion ? direccion.toJSON() : null };
+    const usuario = await Usuario.findByPk(usuarioId, {
+      include: [{ model: Direccion, as: 'direccion' }]
+    });
+
+    const vinilos = await Vinilo.findAll({
+      where: { id_vinilo: ids, disponible: true },
+      include: [
+        {
+          model: Catalogo_Vinilo,
+          as: "catalogo_vinilo",
+          include: [
+            {
+              model: Artista,
+              as: "artista"
+            }
+          ]
+        }
+      ]
+    });
+
+    return {
+      direccion: usuario?.direccion?.toJSON() ?? null,
+      items: vinilos.map(v => v.toJSON()) 
+    };
+
   } catch {
-    return { direccion: null };
+    return { direccion: null, items: [] };
   }
 }
 
@@ -65,11 +98,11 @@ export const actions = {
       }
 
       await t.commit();
-      redirect(302, `/confirmacion?orden=${orden.id_orden}`);
+      throw redirect(302, `/confirmacion?orden=${orden.id_orden}`);
     } catch (err) {
-      await t.rollback();
-      console.error('Error al crear orden:', err);
-      return fail(500, { error: 'No se pudo procesar el pedido' });
+      if (isRedirect(err)) throw err;
+      if (!t.finished) await t.rollback();
+      return fail(500, { error: 'Error al procesar la orden' });
     }
   }
 };

@@ -14,13 +14,16 @@ export async function load({ url }) {
       include: [
         {
           model: Catalogo_Vinilo,
+          as: "catalogo_vinilo",
           include: [
-            { model: Artista },
-            { model: Genero },
-            { model: Empresa }
+            { model: Artista, as: "artista" },
+            { model: Genero, as: "genero" },
+            { model: Empresa, as: "empresa" }
           ]
         },
-        { model: Estado_Vinilo }
+        { model: Estado_Vinilo,
+          as: "estado_vinilo"
+        }
       ]
     });
     if (!vinilo) throw error(404, 'Vinilo no encontrado');

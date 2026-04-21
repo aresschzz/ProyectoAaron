@@ -33,7 +33,7 @@
       <h3 class="fw-bold text-success mb-3">${v.precio_venta}</h3>
 
       <div class="mb-4">
-        <p class="mb-2"><strong>Estado físico:</strong> {v.estatus?.nombre ?? '—'}</p>
+        <p class="mb-2"><strong>Estado físico:</strong> {v.estado_vinilo?.nombre ?? '—'}</p>
         <p class="mb-2"><strong>Empresa:</strong> {v.catalogo_vinilo?.empresa?.nombre ?? '—'}</p>
         <p class="mb-2"><strong>Año:</strong> {v.catalogo_vinilo?.anio ?? '—'}</p>
         <p class="mb-0"><strong>Disponibilidad:</strong>
