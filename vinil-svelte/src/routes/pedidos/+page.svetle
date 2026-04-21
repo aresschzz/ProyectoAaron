@@ -1,0 +1,83 @@
+<script>
+  const { data } = $props();
+  const pedidos = data?.pedidos ?? [];
+</script>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="/">VINIL</a>
+    <div class="ms-auto">
+      <a href="/catalogo" class="btn btn-outline-light me-2">Catálogo</a>
+      <a href="/perfil" class="btn btn-primary">Mi perfil</a>
+    </div>
+  </div>
+</nav>
+
+<header class="container py-5">
+  <div class="row align-items-center">
+    <div class="col">
+      <h1 class="display-5 fw-bold">Mis pedidos</h1>
+      <p class="text-muted">
+        Consulta el estado de tus compras y revisa el resumen de cada pedido.
+      </p>
+    </div>
+  </div>
+</header>
+
+{#if pedidos.length > 0}
+<section class="container pb-5">
+  <div class="row g-4">
+    {#each pedidos as p}
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm rounded-4 border-0 p-3">
+
+        <!-- Número de guía -->
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h6 class="fw-bold mb-0">Guía: #{p.numero_guia}</h6>
+          <span class="badge 
+            {p.estatus === 'Entregado' ? 'bg-success' : 
+             p.estatus === 'En camino' ? 'bg-warning text-dark' : 
+             'bg-secondary'}">
+            {p.estatus}
+          </span>
+        </div>
+
+        <!-- Fecha -->
+        <p class="text-muted small mb-2">
+          Fecha: {p.fecha ?? '—'}
+        </p>
+
+        <!-- Resumen -->
+        <div class="mb-2">
+          <p class="fw-bold mb-1">Resumen:</p>
+          <ul class="small text-muted mb-2">
+            {#each p.detalles as d}
+              <li>{d.nombre} x{d.cantidad}</li>
+            {/each}
+          </ul>
+        </div>
+
+        <!-- Total -->
+        <p class="fw-bold mb-3">
+          Total: ${p.total}
+        </p>
+
+        <!-- Botón detalle -->
+        <a href="/pedido?id={p.id_pedido}" class="btn btn-sm btn-dark rounded-3">
+          Ver detalle
+        </a>
+
+      </div>
+    </div>
+    {/each}
+  </div>
+</section>
+{:else}
+<section class="container pb-5">
+  <div class="text-center">
+    <h5 class="fw-bold">No tienes pedidos aún</h5>
+    <p class="text-muted">Explora el catálogo y realiza tu primera compra.</p>
+    <a href="/catalogo" class="btn btn-primary">Ir al catálogo</a>
+  </div>
+</section>
+{/if}
