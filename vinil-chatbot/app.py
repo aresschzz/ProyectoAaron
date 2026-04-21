@@ -8,13 +8,15 @@ from rapidfuzz import process
 app = Flask(__name__)
 CORS(app)
 
+
 DB_CONFIG = {
     "dbname": os.getenv("DB_NAME", "tienda_vinilos"),
     "user": os.getenv("DB_USER", "postgres"),
-    "password": os.getenv("DB_PASS", "Oswal2018"),
-    "host": os.getenv("DB_HOST", "localhost"),
+    "password": os.getenv("DB_PASSWORD", "1234"),
+    "host": os.getenv("DB_HOST", "db"),
     "port": os.getenv("DB_PORT", "5432"),
 }
+
 def sugerir(nombre, lista):
     if not lista:
         return None
