@@ -28,6 +28,7 @@ CREATE TABLE catalogo_vinilo (
     id_empresa INT REFERENCES empresa(id_empresa),
     nombre_albums VARCHAR(150),
     anio INT
+    imagen_url VARCHAR(250)
 );
 
 -- =========================
