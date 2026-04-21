@@ -9,11 +9,11 @@ app = Flask(__name__)
 CORS(app)
 
 DB_CONFIG = {
-    "dbname": os.getenv("DB_NAME", "tienda_vinilos"),
-    "user": os.getenv("DB_USER", "postgres"),
-    "password": os.getenv("DB_PASS", "Oswal2018"),
-    "host": os.getenv("DB_HOST", "localhost"),
-    "port": os.getenv("DB_PORT", "5432"),
+    "dbname": os.getenv("DB_NAME", ""),
+    "user": os.getenv("DB_USER", ""),
+    "password": os.getenv("DB_PASS", ""),
+    "host": os.getenv("DB_HOST", ""),
+    "port": os.getenv("DB_PORT", ""),
 }
 def sugerir(nombre, lista):
     if not lista:
